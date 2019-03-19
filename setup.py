@@ -67,7 +67,7 @@ with open('README.rst') as file_object:
   long_description = file_object.read()
 
 setup(
-  name = 'securesystemslib',
+  name = 'oll-securesystemslib',
   version = '0.11.3',
   description = 'A library that provides cryptographic and general-purpose'
       ' routines for Secure Systems Lab projects at NYU',
