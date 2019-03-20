@@ -68,9 +68,8 @@ with open('README.rst') as file_object:
 
 setup(
   name = 'oll-securesystemslib',
-  version = '0.11.3',
-  description = 'A library that provides cryptographic and general-purpose'
-      ' routines for Secure Systems Lab projects at NYU',
+  version = '0.11.3.dev3',
+  description = "Open Law Library's fork of securesystemslib",
   long_description = long_description,
   author = 'https://www.updateframework.com',
   author_email = 'theupdateframework@googlegroups.com',
