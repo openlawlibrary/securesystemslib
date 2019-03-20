@@ -39,8 +39,7 @@ logger = logging.getLogger('securesystemslib_test_keys')
 KEYS = securesystemslib.keys
 FORMAT_ERROR_MSG = 'securesystemslib.exceptions.FormatError was raised!' + \
   '  Check object\'s format.'
-DATA_STR = 'SOME DATA REQUIRING AUTHENTICITY.'
-DATA = securesystemslib.formats.encode_canonical(DATA_STR).encode('utf-8')
+DATA = 'SOME DATA REQUIRING AUTHENTICITY.'
 
 
 
@@ -333,8 +332,7 @@ class TestKeys(unittest.TestCase):
     # 'rsa_signature'. Function should return 'False'.
 
     # Modifying 'DATA'.
-    _DATA_STR = '1111' + DATA_STR + '1111'
-    _DATA = securesystemslib.formats.encode_canonical(_DATA_STR).encode('utf-8')
+    _DATA = '1111' + DATA + '1111'
 
     # Verifying the 'signature' of modified '_DATA'.
     verified = KEYS.verify_signature(self.rsakey_dict, rsa_signature, _DATA)
