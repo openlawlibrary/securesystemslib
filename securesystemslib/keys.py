@@ -397,7 +397,7 @@ def generate_ed25519_key(scheme='ed25519'):
 
 
 
-def format_keyval_to_metadata(keytype, scheme, key_value, private=False):
+def format_keyval_to_metadata(keytype, scheme, key_value, external=False, private=False):
   """
   <Purpose>
     Return a dictionary conformant to 'securesystemslib.formats.KEY_SCHEMA'.
@@ -441,6 +441,9 @@ def format_keyval_to_metadata(keytype, scheme, key_value, private=False):
 
       conformant to 'securesystemslib.formats.KEYVAL_SCHEMA'.
 
+    external:
+      Indicates if signature will be provided externaly.
+
     private:
       Indicates if the private key should be included in the dictionary
       returned.
@@ -469,6 +472,11 @@ def format_keyval_to_metadata(keytype, scheme, key_value, private=False):
   # Does 'key_value' have the correct format?
   securesystemslib.formats.KEYVAL_SCHEMA.check_match(key_value)
 
+  # Key infrmation that always exists
+  key_info = { 'keytype': keytype, 'scheme': scheme }
+  if external:
+    key_info['external'] = external
+
   if private is True:
     # If the caller requests (via the 'private' argument) to include a private
     # key in the returned dictionary, ensure the private key is actually
@@ -479,15 +487,15 @@ def format_keyval_to_metadata(keytype, scheme, key_value, private=False):
         ' is missing from: ' + repr(key_value))
 
     else:
-      return {'keytype': keytype, 'scheme': scheme, 'keyval': key_value}
+      return dict(key_info, **{'keyval': key_value})
 
   else:
     public_key_value = {'public': key_value['public']}
-
-    return {'keytype': keytype,
-            'scheme': scheme,
-            'keyid_hash_algorithms': securesystemslib.settings.HASH_ALGORITHMS,
-            'keyval': public_key_value}
+    key_val = {
+      'keyid_hash_algorithms': securesystemslib.settings.HASH_ALGORITHMS,
+      'keyval': public_key_value
+    }
+    return dict(key_info, **key_val)
 
 
 

@@ -257,7 +257,8 @@ ANYKEY_SCHEMA = SCHEMA.Object(
   keyid = KEYID_SCHEMA,
   keyid_hash_algorithms = SCHEMA.Optional(HASHALGORITHMS_SCHEMA),
   keyval = KEYVAL_SCHEMA,
-  expires = SCHEMA.Optional(ISO8601_DATETIME_SCHEMA))
+  expires = SCHEMA.Optional(ISO8601_DATETIME_SCHEMA),
+  external = SCHEMA.Optional(SCHEMA.Boolean()))
 
 # A list of TUF key objects.
 ANYKEYLIST_SCHEMA = SCHEMA.ListOf(ANYKEY_SCHEMA)
