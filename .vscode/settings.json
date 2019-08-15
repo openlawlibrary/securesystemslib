@@ -1,0 +1,13 @@
+{
+  "editor.tabSize": 2,
+  "python.formatting.autopep8Args": [
+    "--indent-size=2",
+    "--max-line-length=100"
+  ],
+  "python.pythonPath": "./env/bin/python",
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
+  "editor.formatOnSave": false,
+  "editor.renderWhitespace": "all"
+}

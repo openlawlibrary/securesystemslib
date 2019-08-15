@@ -20,69 +20,22 @@
 
 <Purpose>
   Run all the unit tests from every .py file beginning with "test_" in
-  'tuf/tests'.  Use --random to run the tests in random order.
+  'securesystemslib/tests'.
 """
-
 
 # Help with Python 3 compatibility, where the print statement is a function, an
 # implicit relative import is invalid, and the '/' operator performs true
 # division.  Example:  print 'hello world' raises a 'SyntaxError' exception.
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import unicode_literals
 
-import glob
-import os
-import random
-import subprocess
 import sys
 import unittest
 
-# 'unittest2' required for testing under Python < 2.7.
-if sys.version_info >= (2, 7):
-  import unittest
-
-else:
-  import unittest2 as unittest
-
-def check_usable_gpg():
-  """ Tries to execute gpg and figure out wether we can run tests that
-      require gpg to be installed
-  """
-  try:
-    # NOTE: We do have a custom in-toto process module but IIRC it is not a
-    # good idea to import anything from the module to be tested here, as
-    # it messes up the module cache when running the tests, eventually leading
-    # to unexpected code coverage results
-    with open(os.devnull, "w") as dev_null_fp:
-      subprocess.check_call(['gpg', '--version'], stdout=dev_null_fp)
-
-  except (WindowsError, FileNotFound) as e:
-    os.environ["TEST_SKIP_GPG"] = "1"
-
-
-# set the test prerequisites (so far, we only check if gpg is installed)
-check_usable_gpg()
-
-# Generate a list of pathnames that match a pattern (i.e., that begin with
-# 'test_' and end with '.py'.  A shell-style wildcard is used with glob() to
-# match desired filenames.  All the tests matching the pattern will be loaded
-# and run in a test suite.
-tests_list = glob.glob('test_*.py')
-
-# Remove '.py' from each filename to allow loadTestsFromNames() (called below)
-# to properly load the file as a module.
-tests_without_extension = []
-for test in tests_list:
-  test = test[:-3]
-  tests_without_extension.append(test)
-
-# Randomize the order in which the tests run.  Randomization might catch errors
-# with unit tests that do not properly clean up or restore monkey-patched
-# modules.
-random.shuffle(tests_without_extension)
-
 if __name__ == '__main__':
-  suite = unittest.TestLoader().loadTestsFromNames(tests_without_extension)
+  suite = unittest.TestLoader().discover("tests", top_level_dir=".")
   all_tests_passed = unittest.TextTestRunner(verbosity=1).run(suite).wasSuccessful()
   if not all_tests_passed:
     sys.exit(1)

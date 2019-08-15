@@ -2,4 +2,3 @@ cryptography
 pynacl
 six
 colorama
-subprocess32; python_version < '3'
