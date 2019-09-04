@@ -59,16 +59,14 @@
   $ export PATH=$PATH:~/.local/bin
 """
 
-from setuptools import setup
-from setuptools import find_packages
-
+from setuptools import find_packages, setup
 
 with open('README.rst') as file_object:
   long_description = file_object.read()
 
 setup(
   name = 'oll-securesystemslib',
-  version = '0.11.3.dev5',
+  version = '0.11.3.dev6',
   description = 'Open Law Library\'s fork of securesystemslib',
   long_description = long_description,
   author = 'https://www.updateframework.com',
