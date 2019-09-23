@@ -66,7 +66,7 @@ with open('README.rst') as file_object:
 
 setup(
   name = 'oll-securesystemslib',
-  version = '0.11.3.dev6',
+  version = '0.11.3.dev7',
   description = 'Open Law Library\'s fork of securesystemslib',
   long_description = long_description,
   author = 'https://www.updateframework.com',
